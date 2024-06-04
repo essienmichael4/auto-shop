@@ -1,0 +1,35 @@
+# Logs
+autoshop-fe/logs
+autoshop-fe/*.log
+autoshop-fe/npm-debug.log*
+autoshop-fe/yarn-debug.log*
+autoshop-fe/yarn-error.log*
+autoshop-fe/pnpm-debug.log*
+autoshop-fe/lerna-debug.log*
+
+autoshop-fe/node_modules
+autoshop-be/node_modules
+autoshop-be/*.env
+autoshop-fe/dist
+autoshop-fe/dist-ssr
+autoshop-fe/*.local
+
+# Editor directories and files
+autoshop-fe/.vscode/*
+autoshop-fe/!.vscode/extensions.json
+autoshop-fe/.idea
+autoshop-fe/.DS_Store
+autoshop-fe/*.suo
+autoshop-fe/*.ntvs*
+autoshop-fe/*.njsproj
+autoshop-fe/*.sln
+autoshop-fe/*.sw?
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
