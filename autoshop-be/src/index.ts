@@ -5,6 +5,7 @@ import log from "./utils/logger"
 
 //Routes
 import userRoute from "./routes/user.route"
+import authRoute from "./routes/auth.route"
 
 const port = process.env.PORT || 5001
 const app = express()
@@ -12,6 +13,7 @@ dotenv.config()
 
 app.use(express.json())
 app.use(cors())
+app.use("/api/v1/auth", authRoute)
 app.use("/api/v1/user", userRoute)
 
 app.listen(port, ()=>{
