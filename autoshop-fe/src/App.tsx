@@ -5,6 +5,7 @@ import RequireAuth from './components/RequireAuth'
 import Dashboard from './Pages/Dashboard/Dashboard'
 import Garage from './Pages/Garage/Garage'
 import Services from './Pages/Services/Services'
+import Customers from './Pages/Customers/Customers'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
               <Route path="dashboard" element={<Dashboard/>} />
               <Route path="garage" element={<Garage/>} />
               <Route path="services" element={<Services/>} />
+              <Route path="customers" element={<Customers/>} />
             </Route>
         </Route>
       </Routes>
