@@ -6,6 +6,7 @@ import Dashboard from './Pages/Dashboard/Dashboard'
 import Garage from './Pages/Garage/Garage'
 import Services from './Pages/Services/Services'
 import Customers from './Pages/Customers/Customers'
+import Employees from './Pages/Employees/Employees'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
               <Route path="garage" element={<Garage/>} />
               <Route path="services" element={<Services/>} />
               <Route path="customers" element={<Customers/>} />
+              <Route path="employees" element={<Employees/>} />
             </Route>
         </Route>
       </Routes>
