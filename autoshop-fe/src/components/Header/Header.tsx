@@ -21,7 +21,7 @@ const routes = [
 
 const Header = () => {
   return (
-    <header className='fixed top-0 z-20 w-full h-[5rem] bg-[#161417] flex items-center'>
+    <header className='fixed top-0 z-10 w-full h-[5rem] bg-[#161417] flex items-center'>
         <div className="container mx-auto px-8 flex items-center justify-between">
             <div className='flex items-center gap-12'>
                 <h1 className='oswald text-3xl text-white'>Auto Shop</h1>
