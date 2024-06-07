@@ -21,7 +21,7 @@ export async function authenticateToken(req:AuthRequest, res:Response, next:Next
 
         const payload = <jwt.JwtPayload>jwt.verify(token, process.env.JWT_REFRESH_KEY as string)
         
-        const user = findUserById(payload.dub.id)
+        const user = await findUserById(payload.dub.id)
         if(!user){
             return res.status(401).json({error: "Api token invalid, Please login and try again"})
         }
