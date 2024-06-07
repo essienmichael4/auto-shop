@@ -36,10 +36,68 @@ model User{
   role Role
   
   departments Department[]
+  customers Customer[]
+  services Service[] @relation("servicer")
+
+  addedServices Service[] @relation("adder")
 }
 
 enum Role{
   USER
   ADMIN
   SUPERADMIN
+}
+
+model Customer{
+  id Int @id @default(autoincrement())
+  firstname String
+  lastname String
+  othernames String?
+  email String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  addedBy Int
+  user User @relation(fields: [addedBy], references: [id])
+
+  phones Phone[]
+  services Service[]
+}
+
+model Phone{
+  id Int @id @default(autoincrement())
+  number String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  customerid Int
+  customer Customer @relation(fields: [customerid], references: [id])
+}
+
+model Service{
+  id Int @id @default(autoincrement())
+  dueDate DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  customerid Int
+  customer Customer @relation(fields: [customerid], references: [id])
+
+  servicedBy Int
+  servicer User @relation("servicer",fields: [servicedBy], references: [id])
+
+  addedBy Int
+  adder User @relation("adder",fields: [addedBy], references: [id])
+}
+
+model Notifications{
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  message String
 }
