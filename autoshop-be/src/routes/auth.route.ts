@@ -4,7 +4,7 @@ import { authenticateRefreshToken } from "../middlewares/authRefresh.middleware"
 
 const router = Router()
 
-router.post("/login", loginUser)
-router.post("/refresh-token", authenticateRefreshToken, refreshToken)
+router.post("/auth/login", loginUser)
+router.post("/auth/refresh-token", authenticateRefreshToken, refreshToken)
 
 export default router

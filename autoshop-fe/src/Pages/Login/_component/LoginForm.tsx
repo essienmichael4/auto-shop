@@ -4,7 +4,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/
 import { LoginSchema, LoginSchemaType } from '@/schema/login'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import axios from '@/api/axios'
+import { axios_instance } from '@/api/axios'
+import axios from 'axios'
 import useAuth from '@/hooks/useAuth'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -28,10 +29,10 @@ const LoginForm = () => {
             toast.loading("Logging in...", {
                 id: "login"
             })
-            const response = await axios.post("/auth/login", JSON.stringify({
+            const response = await axios_instance.post("/auth/login", {
                 email: data.email,
                 password: data.password
-            }))
+            })
             
             setAuth(response.data)
             form.reset()
@@ -39,13 +40,13 @@ const LoginForm = () => {
                 id: "login"
             })
             navigate(from, {replace:true})
-        }catch(err){
+        }catch(err:any){
             console.log(err);
-            // if(!err.response){
-            //     toast.error("Server not found")
-            // }else{
-            //     toast.error(err.response.data.error)
-            // }
+            if (axios.isAxiosError(err)){
+                toast.error(err?.response?.data?.error, {
+                    id: "login"
+                })
+            }
         }
     }
 
