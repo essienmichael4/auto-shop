@@ -15,6 +15,8 @@ export const loginUser = async (req:Request, res:Response)=>{
     try{
         const {email, password} = req.body
 
+        log.info(req.body)
+
         let user = await findUserByEmail(email)
 
         if(!user){

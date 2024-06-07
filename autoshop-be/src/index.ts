@@ -13,8 +13,8 @@ dotenv.config()
 
 app.use(express.json())
 app.use(cors())
-app.use("/api/v1/auth", authRoute)
-app.use("/api/v1/user", userRoute)
+app.use("/api/v1", authRoute)
+app.use("/api/v1", userRoute)
 
 app.listen(port, ()=>{
     log.info(`Server running on port ${port}`);   
