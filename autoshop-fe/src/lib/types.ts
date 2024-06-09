@@ -17,3 +17,12 @@ export type AuthContextType = {
     auth: AuthType | undefined,
     setAuth: Dispatch<SetStateAction<AuthType | undefined>>;
 }
+
+export type Customer = {
+    id:number
+    firstname:string
+    lastname:string
+    othernames?:string,
+    email:string,
+    phones:{number:string}[]
+}
