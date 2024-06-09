@@ -9,7 +9,7 @@ import { CreateNewCustomerSchema, CreateNewCustomerSchemaType } from '@/schema/c
 import { InputTags } from '../ui/InputTags'
 import { Button } from '../ui/button'
 import { axios_instance } from '@/api/axios'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import useAuth from '@/hooks/useAuth'
 
@@ -20,6 +20,7 @@ interface Props{
 const CreateNewCustomerDialog = ({trigger}:Props) => {
     const {auth} = useAuth()
     const [open, setOpen] = useState(false)
+    const queryClient = useQueryClient()
     const form = useForm<CreateNewCustomerSchemaType>({
         resolver:zodResolver(CreateNewCustomerSchema),
         defaultValues:{
@@ -58,7 +59,7 @@ const CreateNewCustomerDialog = ({trigger}:Props) => {
                 phones: []
             })
 
-            // queryClient.invalidateQueries({queryKey: ["overview"]})
+            queryClient.invalidateQueries({queryKey: ["customers"]})
 
             setOpen(prev => !prev)
         }
