@@ -26,3 +26,14 @@ export type Customer = {
     email:string,
     phones:{number:string}[]
 }
+
+export type Employee = {
+    id:number
+    firstname:string
+    lastname:string
+    othernames?:string,
+    email:string,
+    status: string,
+    role?: string
+    departments:{office:string}[]
+}
