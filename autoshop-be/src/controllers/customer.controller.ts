@@ -49,6 +49,7 @@ export const getCustomer = async (req:AuthRequest, res:Response)=>{
         const {id} = req.params
 
         const customer = await getCustomerById(Number(id))
+        if(!customer) return res.sendStatus(404).json({message: `Customer with ID: ${id} was not found.`})
 
         res.send(customer)
     }catch(err:any){

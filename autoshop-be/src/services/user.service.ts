@@ -30,3 +30,46 @@ export const createNewUser = (firstname:string, lastname:string, email:string, r
             
     })
 }
+
+export const getAllUsers = () =>{
+    return prisma.user.findMany({
+        select: {
+            departments:true,
+            id: true,
+            firstname: true,
+            lastname: true,
+            othernames: true,
+            email: true,
+            status: true,
+            role: true,
+        }
+        // include: {
+        //     departments: true,
+        // }
+    })
+}
+
+export const getUserById = (id:number) =>{
+    return prisma.user.findUnique({
+        where:{id},
+        select: {
+            departments:true,
+            id: true,
+            firstname: true,
+            lastname: true,
+            othernames: true,
+            email: true,
+            status: true,
+            role: true,
+        }
+    })
+}
+
+export const updateUserPassword = (id:number, password:string) =>{
+    return prisma.user.update({
+        where: {id},
+        data:{
+            password
+        }
+    })
+}
