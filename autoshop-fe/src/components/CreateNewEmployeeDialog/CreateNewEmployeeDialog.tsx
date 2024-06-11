@@ -5,35 +5,38 @@ import { Input } from '../ui/input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
-import { CreateNewCustomerSchema, CreateNewCustomerSchemaType } from '@/schema/customers'
 import { InputTags } from '../ui/InputTags'
 import { Button } from '../ui/button'
 import { axios_instance } from '@/api/axios'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import useAuth from '@/hooks/useAuth'
+import { CreateNewEmployeeSchema, CreateNewEmployeeSchemaType } from '@/schema/employees'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 
 interface Props{
     trigger: React.ReactNode
 }
 
-const CreateNewCustomerDialog = ({trigger}:Props) => {
+const CreateNewEmployeeDialog = ({trigger}:Props) => {
     const {auth} = useAuth()
     const [open, setOpen] = useState(false)
     const queryClient = useQueryClient()
-    const form = useForm<CreateNewCustomerSchemaType>({
-        resolver:zodResolver(CreateNewCustomerSchema),
+
+    const form = useForm<CreateNewEmployeeSchemaType>({
+        resolver:zodResolver(CreateNewEmployeeSchema),
         defaultValues:{
             firstname:"",
             lastname: "",
             othernames: "",
             email: "",
-            phones: []
+            departments: [],
+            role: "USER"
         }
     })
 
-    const createCustomer = async (data:CreateNewCustomerSchemaType)=>{
-        const response = await axios_instance.post("/customers", {
+    const createEmployee = async (data:CreateNewEmployeeSchemaType)=>{
+        const response = await axios_instance.post("/create-user", {
             ...data
         }, {
             headers: {
@@ -45,10 +48,10 @@ const CreateNewCustomerDialog = ({trigger}:Props) => {
     }
 
     const {mutate, isPending} = useMutation({
-        mutationFn: createCustomer,
+        mutationFn: createEmployee,
         onSuccess: (data)=>{
             toast.success(data.message, {
-                id: "create-customer"
+                id: "create-employee"
             })
 
             form.reset({
@@ -56,18 +59,21 @@ const CreateNewCustomerDialog = ({trigger}:Props) => {
                 lastname: "",
                 othernames: "",
                 email: "",
-                phones: []
+                departments: [],
+                role: "USER"
             })
 
-            queryClient.invalidateQueries({queryKey: ["customers"]})
+            queryClient.invalidateQueries({queryKey: ["employees"]})
 
             setOpen(prev => !prev)
         }
     })
 
-    const onSubmit = (data:CreateNewCustomerSchemaType)=>{
-        toast.loading("Creating Customer...", {
-            id: "create-customer"
+    const onSubmit = (data:CreateNewEmployeeSchemaType)=>{
+        console.log(data);
+        
+        toast.loading("Creating employee...", {
+            id: "create-employee"
         })
         console.log(data);
         mutate(data)
@@ -79,8 +85,7 @@ const CreateNewCustomerDialog = ({trigger}:Props) => {
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>
-                        Add a new 
-                        customer
+                        Add a new employee
                     </DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
@@ -138,17 +143,43 @@ const CreateNewCustomerDialog = ({trigger}:Props) => {
                         />
                         <FormField
                             control={form.control}
-                            name="phones"
+                            name="departments"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className='text-xs'>Phone(s)</FormLabel>
+                                    <FormLabel className='text-xs'>Department(s)</FormLabel>
                                 <FormControl>
                                     <InputTags {...field} />
                                 </FormControl>
                                 <FormDescription className='text-xs'>
-                                    Phone number(s) of customer
+                                    Department(s) of employee
                                 </FormDescription>
                                 <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="role"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className='text-xs'>Role</FormLabel>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Select a verified email to display" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            <SelectItem value="USER">User</SelectItem>
+                                            <SelectItem value="ADMIN">Admin</SelectItem>
+                                            <SelectItem value="SUPERADMIN">Super Admin</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                    <FormDescription className='text-xs'>
+                                        You can the user's role here
+                                    </FormDescription>
+                                    <FormMessage />
                                 </FormItem>
                             )}
                         />
@@ -167,7 +198,8 @@ const CreateNewCustomerDialog = ({trigger}:Props) => {
                     </DialogClose>
                     <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending}
                     >
-                        {!isPending && "Create Customer"}
+                        
+                        {!isPending && "Create Employee"}
                         {isPending && <Loader2 className='animate-spin' /> }
                     </Button>
                 </DialogFooter>
@@ -176,4 +208,4 @@ const CreateNewCustomerDialog = ({trigger}:Props) => {
     )
 }
 
-export default CreateNewCustomerDialog
+export default CreateNewEmployeeDialog
