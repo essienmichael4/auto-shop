@@ -11,14 +11,9 @@ import { createNewUser, getAllUsers, getUserById } from "../services/user.servic
  */
 export const createUser = async (req:Request, res:Response)=>{
     try{
-        const {firstname, lastname, othernames, email, role, departments, password} = req.body
+        const {firstname, lastname, othernames, email, role, departments} = req.body
 
-        let hashedPassword:string = ""
-        if(password){
-            hashedPassword = await bcrypt.hash(password, 10)
-        }
-
-        const newUser = createNewUser(firstname, lastname, email, role, departments, othernames, hashedPassword) 
+        const newUser = await createNewUser(firstname, lastname, email, role, departments, othernames) 
 
         res.send({newUser, message: "User created successfully"})
 
@@ -35,7 +30,7 @@ export const createUser = async (req:Request, res:Response)=>{
  */
 export const getUsers = async (req:Request, res:Response)=>{
     try{
-        const users =  getAllUsers()
+        const users = await getAllUsers()
         res.send(users)
     }catch(err:any){
         res.status(400).json(err)

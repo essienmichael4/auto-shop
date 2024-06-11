@@ -9,20 +9,19 @@ export const findUserById = (id:number)=>{
     return prisma.user.findUnique({where:{id}})
 }
 
-export const createNewUser = (firstname:string, lastname:string, email:string, role: Role, departments: {office: string}[], othernames?:string, password?:string)=>{
+export const createNewUser = (firstname:string, lastname:string, email:string, role: Role, departments:string[], othernames?:string)=>{
     return prisma.user.create({data: {
         firstname,
         lastname,
         othernames,
-        password,
         email,
         status: "Active",
         role,
         departments: {
             connectOrCreate: departments.map(department => {
                 return {
-                    where: { office : department.office},
-                    create: { office :department.office}
+                    where: { office : department},
+                    create: { office :department}
                 };
             })
         }
@@ -43,9 +42,6 @@ export const getAllUsers = () =>{
             status: true,
             role: true,
         }
-        // include: {
-        //     departments: true,
-        // }
     })
 }
 
