@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "
 import { useQuery } from '@tanstack/react-query'
 import { axios_instance } from '@/api/axios'
 import useAuth from '@/hooks/useAuth'
-import { Customer, Employee } from '@/lib/types'
+import { Employee } from '@/lib/types'
 import { DataTableColumnHeader } from '../DataTable/ColumnHeader'
 import { DataTableViewOptions } from '../DataTable/ColumnToggle'
 import { Button } from '../ui/button'

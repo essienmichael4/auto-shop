@@ -3,10 +3,10 @@ import useAuth from '@/hooks/useAuth'
 import React, { useState } from 'react'
 import employees from "../../assets/dashboard.jpg"
 import EmployeesTable from '@/components/Tables/EmployeesTable'
+import CreateNewEmployeeDialog from '@/components/CreateNewEmployeeDialog/CreateNewEmployeeDialog'
 
 const Employees = () => {
     const {auth} = useAuth()
-    
 
     return (
         <div>
@@ -18,14 +18,14 @@ const Employees = () => {
                 <div className='flex items-center justify-between gap-8'>
                     <h2 className='text-2xl text-white font-semibold'>Employees</h2>
                     <div className='flex gap-4'>
-                        <button className='bg-white px-4 py-2 rounded'>Add Employee</button>
+                    <CreateNewEmployeeDialog trigger={
+                        <button className='bg-white px-4 py-2 rounded text-xs'>Add Employee</button>
+
+                    } />
                     </div>
                 </div>
                 <div className='p-4 bg-white/15 mt-4 rounded-xl backdrop-blur-sm'>
-                    <h3>All</h3>
-                    <div className=' mt-4 p-4 bg-white rounded-lg'>
-                        <EmployeesTable />
-                    </div>
+                    <EmployeesTable />
                 </div>
             </div>
         </div>
