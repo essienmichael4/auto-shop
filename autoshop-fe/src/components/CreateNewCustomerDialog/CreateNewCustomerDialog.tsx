@@ -12,12 +12,14 @@ import { axios_instance } from '@/api/axios'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import useAuth from '@/hooks/useAuth'
+import { Customer } from '@/lib/types'
 
 interface Props{
-    trigger: React.ReactNode
+    trigger?: React.ReactNode,
+    successCallback?: (customer:Customer)=>void
 }
 
-const CreateNewCustomerDialog = ({trigger}:Props) => {
+const CreateNewCustomerDialog = ({trigger, successCallback}:Props) => {
     const {auth} = useAuth()
     const [open, setOpen] = useState(false)
     const queryClient = useQueryClient()
@@ -58,6 +60,8 @@ const CreateNewCustomerDialog = ({trigger}:Props) => {
                 email: "",
                 phones: []
             })
+
+            if(successCallback) successCallback(data)
 
             queryClient.invalidateQueries({queryKey: ["customers"]})
 
