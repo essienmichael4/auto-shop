@@ -33,7 +33,9 @@ const CreateServiceDialog = ({trigger}:Props) => {
         defaultValues:{
             dueDate: new Date(),
             customer: undefined,
-            servicer: undefined
+            servicer: undefined,
+            name: "",
+            description: ""
         }
     })
 
@@ -46,7 +48,7 @@ const CreateServiceDialog = ({trigger}:Props) => {
     }, [form])
 
     const createService = async (data:CreateNewServiceSchemaType)=>{
-        const response = await axios_instance.post("/create-user", {
+        const response = await axios_instance.post("/services", {
             ...data
         }, {
             headers: {
@@ -67,7 +69,9 @@ const CreateServiceDialog = ({trigger}:Props) => {
             form.reset({
                 dueDate: new Date(),
                 customer: undefined,
-                servicer: undefined
+                servicer: undefined,
+                name: "",
+                description: ""
             })
 
             queryClient.invalidateQueries({queryKey: ["services"]})
@@ -120,6 +124,35 @@ const CreateServiceDialog = ({trigger}:Props) => {
                                         <EmployeePicker  onChange={handleEmployeeChange}/>
                                     </FormControl>
                                     <FormDescription>Select a employee</FormDescription>
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField 
+                            control={form.control}
+                            name="name"
+                            render={({field}) =>(
+                                <FormItem>
+                                    <FormLabel>Service Name</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} />
+                                    </FormControl>
+                                    <FormDescription>Name or Type of service render</FormDescription>
+                                </FormItem>
+                            )}
+                        />
+                        
+
+                        <FormField 
+                            control={form.control}
+                            name="description"
+                            render={({field}) =>(
+                                <FormItem>
+                                    <FormLabel>Description</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} />
+                                    </FormControl>
+                                    <FormDescription>Service description (optional)</FormDescription>
                                 </FormItem>
                             )}
                         />

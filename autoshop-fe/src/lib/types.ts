@@ -41,7 +41,8 @@ export type Employee = {
 export type Service = {
     id:number
     createdAt:string
-    dueDate:string
+    dueDate:string,
+    name: string,
     customer: {
         firstname:string
         lastname:string

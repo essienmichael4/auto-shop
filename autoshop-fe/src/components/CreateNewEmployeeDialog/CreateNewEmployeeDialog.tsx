@@ -70,12 +70,9 @@ const CreateNewEmployeeDialog = ({trigger}:Props) => {
     })
 
     const onSubmit = (data:CreateNewEmployeeSchemaType)=>{
-        console.log(data);
-        
         toast.loading("Creating employee...", {
             id: "create-employee"
         })
-        console.log(data);
         mutate(data)
     }
 
