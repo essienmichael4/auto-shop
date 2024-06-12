@@ -37,3 +37,23 @@ export type Employee = {
     role?: string
     departments:{office:string}[]
 }
+
+export type Service = {
+    id:number
+    createdAt:string
+    dueDate:string
+    customer: {
+        firstname:string
+        lastname:string
+        othernames?:string,
+        email:string,
+        phones:{number:string}[]
+    },
+    servicer: {
+        firstname:string
+        lastname:string
+        othernames?:string,
+        email:string,
+        departments:{office:string}[]
+    }
+}

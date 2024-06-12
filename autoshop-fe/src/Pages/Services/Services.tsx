@@ -5,6 +5,8 @@ import services from "../../assets/dashboard.jpg"
 import { differenceInDays, startOfMonth } from 'date-fns'
 import { DateRangePicker } from '@/components/ui/date-range-picker'
 import { toast } from 'sonner'
+import SericesTable from '@/components/Tables/SericesTable'
+import CreateServiceDialog from '@/components/CreateServiceDialog/CreateServiceDialog'
 
 const Services = () => {
     const {auth} = useAuth()
@@ -39,14 +41,13 @@ const Services = () => {
                         setDateRange({from, to})
                         }}
                     />
-                    <button className='bg-white px-4 rounded'>Add Service</button>
+                    <CreateServiceDialog trigger={
+                        <button className='bg-white px-4 rounded'>Add Service</button>
+                    } />
                 </div>
             </div>
             <div className='p-4 bg-white/15 mt-4 rounded-xl backdrop-blur-sm'>
-                <h3>Today</h3>
-                <div className=' mt-4 p-4 bg-white rounded-lg'>
-                    Table goes here
-                </div>
+                <SericesTable />
             </div>
         </div>
     </div>
