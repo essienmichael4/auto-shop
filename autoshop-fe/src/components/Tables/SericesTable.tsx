@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import {ColumnDef, SortingState, flexRender, getCoreRowModel, getPaginationRowModel, getSortedRowModel, useReactTable, } from "@tanstack/react-table"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
 import { useQuery } from '@tanstack/react-query'
@@ -32,25 +32,31 @@ const SericesTable = () => {
         </div>
     },{
         accessorKey: "name",
-        header:({column})=>(<DataTableColumnHeader column={column} title='Customer name' />),
+        header:({column})=>(<DataTableColumnHeader column={column} title='Service Name' />),
+        cell:({row}) => <div>
+            {row.original.name}
+        </div>
+    },{
+        accessorKey: "customerName",
+        header:({column})=>(<DataTableColumnHeader column={column} title='Customer Name' />),
         cell:({row}) => <div>
             {row.original.customer.firstname} {row.original.customer.lastname} {row.original.customer?.othernames}
         </div>
     },{
         accessorKey: "email",
-        header:({column})=>(<DataTableColumnHeader column={column} title='Customer email' />),
+        header:({column})=>(<DataTableColumnHeader column={column} title='Customer Email' />),
         cell:({row}) => <div>
             {row.original.customer.email}
         </div>
     },{
         accessorKey: "createdAt",
-        header:({column})=>(<DataTableColumnHeader column={column} title='Service date' />),
+        header:({column})=>(<DataTableColumnHeader column={column} title='Service Date' />),
         cell:({row}) => <div>
             {row.original.createdAt}
         </div>
     },{
         accessorKey: "dueDate",
-        header:({column})=>(<DataTableColumnHeader column={column} title='Due date' />),
+        header:({column})=>(<DataTableColumnHeader column={column} title='Due Date' />),
         cell:({row}) => <div>
             {row.original.dueDate}
         </div>

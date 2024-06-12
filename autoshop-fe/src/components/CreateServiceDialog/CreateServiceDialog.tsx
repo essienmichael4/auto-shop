@@ -4,7 +4,6 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '../ui/input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { InputTags } from '../ui/InputTags'
 import { Button } from '../ui/button'
 import { format } from 'date-fns'
 import { axios_instance } from '@/api/axios'
@@ -33,7 +32,9 @@ const CreateServiceDialog = ({trigger}:Props) => {
         defaultValues:{
             dueDate: new Date(),
             customer: undefined,
-            servicer: undefined
+            servicer: undefined,
+            name: "",
+            description: ""
         }
     })
 
@@ -46,7 +47,7 @@ const CreateServiceDialog = ({trigger}:Props) => {
     }, [form])
 
     const createService = async (data:CreateNewServiceSchemaType)=>{
-        const response = await axios_instance.post("/create-user", {
+        const response = await axios_instance.post("/services", {
             ...data
         }, {
             headers: {
@@ -67,7 +68,9 @@ const CreateServiceDialog = ({trigger}:Props) => {
             form.reset({
                 dueDate: new Date(),
                 customer: undefined,
-                servicer: undefined
+                servicer: undefined,
+                name: "",
+                description: ""
             })
 
             queryClient.invalidateQueries({queryKey: ["services"]})
@@ -99,7 +102,7 @@ const CreateServiceDialog = ({trigger}:Props) => {
                         <FormField 
                             control={form.control}
                             name="customer"
-                            render={({field}) =>(
+                            render={() =>(
                                 <FormItem className='flex flex-col'>
                                     <FormLabel className='mr-2'>Customer Name</FormLabel>
                                     <FormControl>
@@ -113,13 +116,42 @@ const CreateServiceDialog = ({trigger}:Props) => {
                         <FormField 
                             control={form.control}
                             name="servicer"
-                            render={({field}) =>(
+                            render={() =>(
                                 <FormItem className='flex flex-col'>
                                     <FormLabel className='mr-2'>Serviced By</FormLabel>
                                     <FormControl>
                                         <EmployeePicker  onChange={handleEmployeeChange}/>
                                     </FormControl>
                                     <FormDescription>Select a employee</FormDescription>
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField 
+                            control={form.control}
+                            name="name"
+                            render={({field}) =>(
+                                <FormItem>
+                                    <FormLabel>Service Name</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} />
+                                    </FormControl>
+                                    <FormDescription>Name or Type of service render</FormDescription>
+                                </FormItem>
+                            )}
+                        />
+                        
+
+                        <FormField 
+                            control={form.control}
+                            name="description"
+                            render={({field}) =>(
+                                <FormItem>
+                                    <FormLabel>Description</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} />
+                                    </FormControl>
+                                    <FormDescription>Service description (optional)</FormDescription>
                                 </FormItem>
                             )}
                         />
