@@ -1,6 +1,5 @@
 import Header from '@/components/Header/Header'
-import useAuth from '@/hooks/useAuth'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import services from "../../assets/dashboard.jpg"
 import { differenceInDays, startOfMonth } from 'date-fns'
 import { DateRangePicker } from '@/components/ui/date-range-picker'
@@ -9,7 +8,6 @@ import SericesTable from '@/components/Tables/SericesTable'
 import CreateServiceDialog from '@/components/CreateServiceDialog/CreateServiceDialog'
 
 const Services = () => {
-    const {auth} = useAuth()
     const [dateRange, setDateRange] = useState<{from: Date, to: Date}>({
         from: startOfMonth(new Date()),
         to: new Date()

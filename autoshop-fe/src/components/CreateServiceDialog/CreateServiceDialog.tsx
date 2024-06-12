@@ -4,7 +4,6 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '../ui/input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { InputTags } from '../ui/InputTags'
 import { Button } from '../ui/button'
 import { format } from 'date-fns'
 import { axios_instance } from '@/api/axios'
@@ -103,7 +102,7 @@ const CreateServiceDialog = ({trigger}:Props) => {
                         <FormField 
                             control={form.control}
                             name="customer"
-                            render={({field}) =>(
+                            render={() =>(
                                 <FormItem className='flex flex-col'>
                                     <FormLabel className='mr-2'>Customer Name</FormLabel>
                                     <FormControl>
@@ -117,7 +116,7 @@ const CreateServiceDialog = ({trigger}:Props) => {
                         <FormField 
                             control={form.control}
                             name="servicer"
-                            render={({field}) =>(
+                            render={() =>(
                                 <FormItem className='flex flex-col'>
                                     <FormLabel className='mr-2'>Serviced By</FormLabel>
                                     <FormControl>
