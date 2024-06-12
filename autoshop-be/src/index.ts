@@ -7,6 +7,7 @@ import log from "./utils/logger"
 import userRoute from "./routes/user.route"
 import authRoute from "./routes/auth.route"
 import customerRoute from "./routes/customer.route"
+import serviceRoute from "./routes/service.route"
 
 const port = process.env.PORT || 5001
 const app = express()
@@ -17,6 +18,7 @@ app.use(cors())
 app.use("/api/v1", authRoute)
 app.use("/api/v1", userRoute)
 app.use("/api/v1", customerRoute)
+app.use("/api/v1", serviceRoute)
 
 app.listen(port, ()=>{
     log.info(`Server running on port ${port}`);   
