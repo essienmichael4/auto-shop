@@ -1,13 +1,14 @@
 import Header from '@/components/Header/Header'
-import useAuth from '@/hooks/useAuth'
-import React, { useState } from 'react'
+// import useAuth from '@/hooks/useAuth'
+import { useState } from 'react'
 import garage from "../../assets/dashboard.jpg"
 import { differenceInDays, startOfMonth } from 'date-fns'
 import { DateRangePicker } from '@/components/ui/date-range-picker'
 import { toast } from 'sonner'
+import Notifications from '@/components/Notifications/Notifications'
 
 const Garage = () => {
-    const {auth} = useAuth()
+    // const {auth} = useAuth()
     const [dateRange, setDateRange] = useState<{from: Date, to: Date}>({
         from: startOfMonth(new Date()),
         to: new Date()
@@ -40,23 +41,14 @@ const Garage = () => {
                     />
             </div>
             <div className='p-4 bg-white/15 mt-4 rounded-xl backdrop-blur-sm'>
-                <h3>Today</h3>
-                <div className=' mt-4 p-4 bg-white rounded-lg'>
-                    Notifications goes here
-                </div>
+                <Notifications />
             </div>
-            <div className='p-4 bg-white mt-4 rounded-xl'>
-                <div className='flex items-center justify-between'>
-                    <div className='flex items-end gap-4'>
-                        <h3 className='text-xl'>Yesterday</h3>
-                        {/* <p className='text-xs'>1 of 20 service</p> */}
-                    </div>
-                    {/* <a href="#">See more</a> */}
-                </div>
+            {/* <div className='p-4 bg-white mt-4 rounded-xl'>
+                
                 <div className='mt-4 p-4'>
                 Notifications goes here
                 </div>
-            </div>
+            </div> */}
         </div>
     </div>
   )
