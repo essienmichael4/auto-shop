@@ -1,6 +1,4 @@
 import { Request, Response } from "express";
-import log from "../utils/logger";
-import { AuthRequest } from "../types/authRequest.type";
 import { getAllServices } from "../services/service.service";
 import { createNotification, getAllNotifications, sendEmail } from "../services/notification.service";
 
