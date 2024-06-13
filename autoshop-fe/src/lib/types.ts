@@ -58,3 +58,9 @@ export type Service = {
         departments:{office:string}[]
     }
 }
+
+export type Notification= {
+    id: number,
+    message: string,
+    createdAt: string
+}

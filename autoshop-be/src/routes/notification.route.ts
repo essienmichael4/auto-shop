@@ -4,6 +4,6 @@ import { getNotifications } from "../controllers/notification.controller";
 
 const router = Router()
 
-router.get("/auth/refresh-token", authenticateToken, getNotifications)
+router.get("/notifications", authenticateToken, getNotifications)
 
 export default router

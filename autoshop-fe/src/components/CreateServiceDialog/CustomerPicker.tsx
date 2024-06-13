@@ -3,7 +3,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { useQuery } from '@tanstack/react-query'
 import useAuth from '@/hooks/useAuth'
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Check, ChevronsUpDown, PlusSquare } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { axios_instance } from '@/api/axios'
