@@ -5,8 +5,8 @@ export const getServicesCount = (from:Date, to: Date)=>{
     return prisma.service.count({
         where:{
             createdAt:{
-                lte: new Date(to).toISOString(),
-                gte: new Date(from).toISOString()
+                lte: DateToUTCDate(new Date(to)),
+                gte: DateToUTCDate(new Date(from))
             }
         }
     })
@@ -23,8 +23,8 @@ export const getCustomersCount = (from?:Date, to?: Date) => {
     return prisma.customer.count({
         where:{
             createdAt:{
-                lte: to && new Date(to).toISOString(),
-                gte: from && new Date(from).toISOString()
+                lte: to && DateToUTCDate(new Date(to)),
+                gte: from && DateToUTCDate(new Date(from))
             }
         }
     })
@@ -35,8 +35,8 @@ export const getServices = (from?:Date, to?: Date) => {
         take: 20,
         where:{
             createdAt:{
-                lte: to && new Date(to).toISOString(),
-                gte: from && new Date(from).toISOString()
+                lte: to && DateToUTCDate(new Date(to)),
+                gte: from && DateToUTCDate(new Date(from))
             },
         },include: {
             servicer:{
@@ -57,4 +57,18 @@ export const getServices = (from?:Date, to?: Date) => {
             },
         }
     })
+}
+
+ function DateToUTCDate(date:Date){
+    return new Date(
+        Date.UTC(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate(),
+            date.getHours(),
+            date.getMinutes(),
+            date.getSeconds(),
+            date.getMilliseconds()
+        )
+    )
 }

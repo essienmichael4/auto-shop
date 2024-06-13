@@ -64,3 +64,20 @@ export type Notification= {
     message: string,
     createdAt: string
 }
+
+export type Stats = {
+    monthStats: {
+        title: string,
+        currentService: number,
+        currentMonthServices: number,
+        percentageDifferenceFromPreviousMonth: number
+    },dayStats:{
+        title: string,
+        currentDayServices: number,
+        percentageDifferenceFromPreviousDay: number
+    },customerStats:{
+        title: string,
+        all: number,
+        new: number
+    }
+}
