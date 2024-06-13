@@ -4,7 +4,7 @@ import { getStatistics, getRecentServices } from "../controllers/stats.controlle
 
 const router = Router()
 
-router.post("/stats-card", authenticateToken, getStatistics)
+router.get("/stats-card", authenticateToken, getStatistics)
 router.get("/recent-services", authenticateToken, getRecentServices)
 // router.get("/employees/:id", authenticateToken, getUser)
 // router.put("/employees/:id/password", authenticateToken, updateUserPassword)

@@ -10,6 +10,7 @@ import authRoute from "./routes/auth.route"
 import customerRoute from "./routes/customer.route"
 import serviceRoute from "./routes/service.route"
 import notificationRoute from "./routes/notification.route"
+import statisticsRoute from "./routes/statistics.route"
 import { scheduleNotificationAndSendMails } from "./controllers/notification.controller";
 
 const port = process.env.PORT || 5001
@@ -23,6 +24,7 @@ app.use("/api/v1", userRoute)
 app.use("/api/v1", customerRoute)
 app.use("/api/v1", serviceRoute)
 app.use("/api/v1", notificationRoute)
+app.use("/api/v1", statisticsRoute)
 
 app.listen(port, ()=>{
     log.info(`Server running on port ${port}`);   
