@@ -1,11 +1,16 @@
 import { Request, Response } from "express";
 import log from "../utils/logger";
 import { AuthRequest } from "../types/authRequest.type";
-import { differenceInPercentage, getCustomersCount, getServices, getServicesCount } from "../services/statistics.service";
+import { differenceInPercentage, getCustomersCount, getHistoryData, getServices, getServicesCount } from "../services/statistics.service";
 import { endOfDay, endOfMonth, startOfDay, startOfMonth } from "date-fns";
 import { title } from "process";
+interface searchParams {
+    timeframe: "MONTH" | "YEAR",
+    year: number,
+    month: number
+}
 
-export const getStatistics = async (req:Request, res:Response)=>{
+export const getStatistics = async (req:Request, res:Response) => {
     const {from, to} = req.query
     const servicesCount = await getServicesCount(new Date(from as string), new Date(to as string))
     const lastMonthServicesCount = await getServicesCount(startOfMonth(new Date().setDate(0)), endOfMonth(new Date().setDate(0)))
@@ -36,7 +41,20 @@ export const getStatistics = async (req:Request, res:Response)=>{
     res.send(data)
 }
 
-export const getRecentServices = async (req:Request, res:Response)=>{
+export const getHistory = async (req:Request, res:Response) => {
+    const { year, month} =  req.params
+    const timeframe:"MONTH" | "YEAR" = req.params.timeframe as "MONTH" | "YEAR"
+
+    if(Number(month) < 0 || Number(month) > 11){
+        return res.status(400).json({message: "Month should be a valid month"})
+    }
+
+    const result = await getHistoryData(timeframe, Number(month), Number(year))
+
+    res.send(result)
+}
+
+export const getRecentServices = async (req:Request, res:Response) => {
     const {from, to} = req.query
     const services = await getServices(new Date(from as string), new Date(to as string))
     res.send(services)

@@ -103,3 +103,20 @@ model Notifications{
 
   message String
 }
+
+model MonthHistory{
+  day Int
+  month Int
+  year Int
+  services Int
+
+  @@id([day, month, year])
+}
+
+model YearHistory{
+  month Int
+  year Int
+  services Int
+
+  @@id([month, year])
+}
