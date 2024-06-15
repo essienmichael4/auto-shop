@@ -1,13 +1,10 @@
-import { useState } from 'react'
-import {ColumnDef, SortingState, flexRender, getCoreRowModel, getPaginationRowModel, getSortedRowModel, useReactTable, } from "@tanstack/react-table"
+import {ColumnDef, flexRender, getCoreRowModel, useReactTable, } from "@tanstack/react-table"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
 import { useQuery } from '@tanstack/react-query'
 import { axios_instance } from '@/api/axios'
 import useAuth from '@/hooks/useAuth'
 import {  Service } from '@/lib/types'
 import { DataTableColumnHeader } from '../DataTable/ColumnHeader'
-import { DataTableViewOptions } from '../DataTable/ColumnToggle'
-import { Button } from '../ui/button'
 
 interface Props{
     from: Date,
@@ -19,7 +16,7 @@ const SummaryTable = ({from, to}:Props) => {
     const {auth} = useAuth()
 
     const services = useQuery<Service[]>({
-        queryKey: ["services", from, to],
+        queryKey: ["summary", "services", from, to],
         queryFn: async() => await axios_instance.get(`/recent-services?from=${from}&to=${to}`, {
             headers: {
                 'Authorization': `Bearer ${auth?.backendTokens.accessToken}`

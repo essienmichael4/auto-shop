@@ -81,3 +81,10 @@ export type Stats = {
         new: number
     }
 }
+
+export type HistoryResponseType = {
+    services: number,
+    year: number,
+    month: number,
+    day?: number
+}
