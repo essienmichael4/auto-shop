@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import log from "../utils/logger";
 import { AuthRequest } from "../types/authRequest.type";
-import { differenceInPercentage, getCustomersCount, getHistoryData, getServices, getServicesCount } from "../services/statistics.service";
+import { differenceInPercentage, getCustomersCount, getHistoryData, getPeriods, getServices, getServicesCount } from "../services/statistics.service";
 import { endOfDay, endOfMonth, startOfDay, startOfMonth } from "date-fns";
 import { title } from "process";
 interface searchParams {
@@ -58,4 +58,9 @@ export const getRecentServices = async (req:Request, res:Response) => {
     const {from, to} = req.query
     const services = await getServices(new Date(from as string), new Date(to as string))
     res.send(services)
+}
+
+export const getHistoryPeriods = async (req:Request, res:Response) => {
+    const periods = await getPeriods() 
+    res.send(periods)
 }
