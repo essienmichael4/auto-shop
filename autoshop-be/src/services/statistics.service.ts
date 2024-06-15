@@ -160,3 +160,22 @@ export const getYearHistory = async(year:number) => {
 
     return history
 }
+
+export const getPeriods= async () => {
+    const result = await prisma.monthHistory.findMany({
+        select:{
+            year:true
+        },
+        distinct: ["year"],
+        orderBy: {
+            year: "asc"
+        }
+    })
+
+    const years = result.map(el => el.year )
+    if(years.length === 0){
+        return [new Date().getFullYear()]
+    }
+
+    return years
+} 
