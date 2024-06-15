@@ -7,6 +7,7 @@ import { DateRangePicker } from '@/components/ui/date-range-picker'
 import { toast } from 'sonner'
 import Summary from '@/components/Summary/Summary'
 import SummaryTable from '@/components/Tables/SummaryTable'
+import HistoryChart from '@/components/HistoryChart/HistoryChart'
 
 const Dashboard = () => {
     const {auth} = useAuth()
@@ -43,9 +44,10 @@ const Dashboard = () => {
             </div>
             <div className='p-4 bg-white/15 mt-4 rounded-xl backdrop-blur-sm'>
                 <Summary from={dateRange.from} to={dateRange.to} />
-                <div className='h-[500px] mt-4 p-4 bg-white rounded-lg'>
+                <HistoryChart />
+                {/* <div className='h-[500px] mt-4 p-4 bg-white rounded-lg'>
                     chart goes here
-                </div>
+                </div> */}
             </div>
             <div className='p-8 bg-white mt-4 rounded-xl'>
                 <SummaryTable from={dateRange.from} to={dateRange.to} />
