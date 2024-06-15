@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { getDaysInMonth } from 'date-fns'
+import log from '../utils/logger'
 const prisma = new PrismaClient()
 
 type HistoryData = {
@@ -82,10 +83,10 @@ export const getServices = (from?:Date, to?: Date) => {
 }
 
 export const getHistoryData = async(timeframe: "MONTH" | "YEAR", month:number, year:number) => {
-    if(timeframe = "YEAR"){
+    if(timeframe === "YEAR"){
         return await getYearHistory(year)
     }
-    if(timeframe = "MONTH"){
+    if(timeframe === "MONTH"){
         return await getMonthHistory(month, year)
     }
 }
@@ -121,7 +122,7 @@ export const getMonthHistory = async (month:number, year:number) => {
             day: i
         })
     }
-    
+
     return history
 }
 

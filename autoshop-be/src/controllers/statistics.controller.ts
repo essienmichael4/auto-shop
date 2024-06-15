@@ -3,7 +3,6 @@ import log from "../utils/logger";
 import { AuthRequest } from "../types/authRequest.type";
 import { differenceInPercentage, getCustomersCount, getHistoryData, getPeriods, getServices, getServicesCount } from "../services/statistics.service";
 import { endOfDay, endOfMonth, startOfDay, startOfMonth } from "date-fns";
-import { title } from "process";
 interface searchParams {
     timeframe: "MONTH" | "YEAR",
     year: number,
@@ -42,8 +41,8 @@ export const getStatistics = async (req:Request, res:Response) => {
 }
 
 export const getHistory = async (req:Request, res:Response) => {
-    const { year, month} =  req.params
-    const timeframe:"MONTH" | "YEAR" = req.params.timeframe as "MONTH" | "YEAR"
+    const { year, month} =  req.query
+    const timeframe:"MONTH" | "YEAR" = req.query.timeframe as "MONTH" | "YEAR"
 
     if(Number(month) < 0 || Number(month) > 11){
         return res.status(400).json({message: "Month should be a valid month"})
