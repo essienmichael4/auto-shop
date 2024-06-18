@@ -27,7 +27,7 @@ const HistoryChart = () => {
     
     return (
         <div className='mt-4 p-4 bg-white rounded-lg'>
-            <div className='flex items-center justify-between'>
+            <div className='flex items-center gap-8'>
                 <h3 className='font-bold text-xl'>History</h3>
 
                 <HistoryPeriodSelector 
