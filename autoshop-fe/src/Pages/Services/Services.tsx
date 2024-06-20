@@ -40,7 +40,7 @@ const Services = () => {
                         }}
                     />
                     <CreateServiceDialog trigger={
-                        <button className='bg-white px-4 rounded'>Add Service</button>
+                        <button className='bg-white px-4 py-2 rounded text-xs'>Add Service</button>
                     } />
                 </div>
             </div>

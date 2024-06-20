@@ -1,6 +1,5 @@
 import Header from '@/components/Header/Header'
-import useAuth from '@/hooks/useAuth'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import dashboard from "../../assets/dashboard.jpg"
 import { differenceInDays, endOfDay, startOfMonth } from 'date-fns'
 import { DateRangePicker } from '@/components/ui/date-range-picker'
@@ -10,7 +9,6 @@ import SummaryTable from '@/components/Tables/SummaryTable'
 import HistoryChart from '@/components/HistoryChart/HistoryChart'
 
 const Dashboard = () => {
-    const {auth} = useAuth()
     const [dateRange, setDateRange] = useState<{from: Date, to: Date}>({
         from: startOfMonth(new Date()),
         to: endOfDay(new Date())
@@ -45,9 +43,6 @@ const Dashboard = () => {
             <div className='p-4 bg-white/15 mt-4 rounded-xl backdrop-blur-sm'>
                 <Summary from={dateRange.from} to={dateRange.to} />
                 <HistoryChart />
-                {/* <div className='h-[500px] mt-4 p-4 bg-white rounded-lg'>
-                    chart goes here
-                </div> */}
             </div>
             <div className='p-8 bg-white mt-4 rounded-xl'>
                 <SummaryTable from={dateRange.from} to={dateRange.to} />

@@ -169,7 +169,7 @@ const CreateNewCustomerDialog = ({trigger, successCallback}:Props) => {
                                 Cancel
                         </Button>
                     </DialogClose>
-                    <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending}
+                    <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending} className='bg-[#47C9D1] hover:bg-[#106981]'
                     >
                         {!isPending && "Create Customer"}
                         {isPending && <Loader2 className='animate-spin' /> }

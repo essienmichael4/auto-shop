@@ -5,6 +5,7 @@ import { axios_instance } from '@/api/axios'
 import useAuth from '@/hooks/useAuth'
 import {  Service } from '@/lib/types'
 import { DataTableColumnHeader } from '../DataTable/ColumnHeader'
+import { Link } from "react-router-dom"
 
 interface Props{
     from: Date,
@@ -80,7 +81,7 @@ const SummaryTable = ({from, to}:Props) => {
                 <div className='flex items-end gap-4'>
                     <h3 className='text-xl'>Services</h3>
                 </div>
-                <a href="#">See more</a>
+                <Link to="../services" className="bg-[#47C9D1] hover:bg-[#106981] px-3 py-1 rounded-full text-white text-sm">See more</Link>
             </div>
             <div className="rounded-md border bg-white/75">
             <Table>

@@ -1,12 +1,9 @@
 import Header from '@/components/Header/Header'
-import useAuth from '@/hooks/useAuth'
-import React, { useState } from 'react'
 import employees from "../../assets/dashboard.jpg"
 import EmployeesTable from '@/components/Tables/EmployeesTable'
 import CreateNewEmployeeDialog from '@/components/CreateNewEmployeeDialog/CreateNewEmployeeDialog'
 
 const Employees = () => {
-    const {auth} = useAuth()
 
     return (
         <div>

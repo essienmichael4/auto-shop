@@ -193,40 +193,7 @@ const CreateServiceDialog = ({trigger}:Props) => {
                                     <FormMessage />
                                 </FormItem>
                             )}
-                        />
-                        {/* <FormField 
-                            control={form.control}
-                            name="description"
-                            render={({field}) =>(
-                                <FormItem>
-                                    <FormLabel>Description</FormLabel>
-                                    <FormControl>
-                                        <Input defaultValue={""} {...field} />
-                                    </FormControl>
-                                    <FormDescription>Transaction description (optional)</FormDescription>
-                                </FormItem>
-                            )}
-                        /> */}
-    
-                        {/* <FormField 
-                            control={form.control}
-                            name="amount"
-                            render={({field}) =>(
-                                <FormItem>
-                                    <FormLabel>Amount</FormLabel>
-                                    <FormControl>
-                                        <Input defaultValue={0} type='number' {...field} />
-                                    </FormControl>
-                                    <FormDescription>Transaction amount (required)</FormDescription>
-                                </FormItem>
-                            )}
-                        /> */}
-    
-                        <div className="flex items-center justify-between gap-2">
-                            
-                            
-                            
-                        </div>
+                        />    
                     </form>
                 </Form>
                 <DialogFooter >
@@ -240,7 +207,7 @@ const CreateServiceDialog = ({trigger}:Props) => {
                                 Cancel
                         </Button>
                     </DialogClose>
-                    <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending}>
+                    <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending} className='bg-[#47C9D1] hover:bg-[#106981]'>
                         {!isPending && "Create"}
                         {isPending && <Loader2 className='animate-spin' /> }
                     </Button>
