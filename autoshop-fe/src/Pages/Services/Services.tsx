@@ -4,7 +4,7 @@ import services from "../../assets/dashboard.jpg"
 import { differenceInDays, startOfMonth } from 'date-fns'
 import { DateRangePicker } from '@/components/ui/date-range-picker'
 import { toast } from 'sonner'
-import SericesTable from '@/components/Tables/SericesTable'
+import ServicesTable from '@/components/Tables/ServicesTable'
 import CreateServiceDialog from '@/components/CreateServiceDialog/CreateServiceDialog'
 
 const Services = () => {
@@ -45,7 +45,7 @@ const Services = () => {
                 </div>
             </div>
             <div className='p-4 bg-white/15 mt-4 rounded-xl backdrop-blur-sm'>
-                <SericesTable />
+                <ServicesTable />
             </div>
         </div>
     </div>
