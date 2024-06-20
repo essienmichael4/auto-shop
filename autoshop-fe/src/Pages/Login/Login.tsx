@@ -1,4 +1,3 @@
-import "./login.css"
 import login from '../../assets/login.jpg'
 import LoginForm from "./_component/LoginForm"
 
