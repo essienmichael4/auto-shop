@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import {ColumnDef, SortingState, flexRender, getCoreRowModel, getPaginationRowModel, getSortedRowModel, useReactTable, } from "@tanstack/react-table"
+import { useState } from 'react'
+import {ColumnDef, SortingState, flexRender, getCoreRowModel, getPaginationRowModel, getFilteredRowModel, getSortedRowModel, useReactTable, } from "@tanstack/react-table"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
 import { useQuery } from '@tanstack/react-query'
 import { axios_instance } from '@/api/axios'
@@ -14,6 +14,7 @@ const emptyData: any[]= []
 const CustomersTable = () => {
     const {auth} = useAuth()
     const [sorting, setSorting] = useState<SortingState>([])
+    const [filtering, setFiltering] = useState("")
 
     const customers = useQuery<Customer[]>({
         queryKey: ["customers"],
@@ -25,7 +26,8 @@ const CustomersTable = () => {
     })
 
     const columns:ColumnDef<Customer>[] =[{
-        accessorKey: "name",
+        accessorFn: (row) => `${row.firstname} ${row.lastname} ${row.othernames}`,
+        id: "customer",
         header:({column})=>(<DataTableColumnHeader column={column} title='Name' />),
         cell:({row}) => <div>
             {row.original.firstname} {row.original.lastname} {row.original?.othernames}
@@ -49,14 +51,17 @@ const CustomersTable = () => {
         data: customers.data || emptyData,
         columns,
         getCoreRowModel: getCoreRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
         initialState: {
             pagination: {
                 pageSize: 20
             }
         },
         state:{
-            sorting
+            sorting,
+            globalFilter: filtering
         },
+        onGlobalFilterChange: setFiltering,
         onSortingChange: setSorting,
         getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel()
@@ -65,7 +70,7 @@ const CustomersTable = () => {
     return (
         <div className='w-full'>
             <div className="mb-4 flex items-center justify-between">
-                <div>Filters</div>
+                <div><input value={filtering}  onChange={e => setFiltering(e.target.value)} placeholder='Search customers...' className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-1 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"/></div>
                 <div className='flex flex-wrap gap-2'>
                     <DataTableViewOptions table={table} />
                 </div>

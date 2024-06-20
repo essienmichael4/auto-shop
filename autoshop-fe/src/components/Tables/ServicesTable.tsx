@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {ColumnDef, SortingState, flexRender, getCoreRowModel, getPaginationRowModel, getSortedRowModel, useReactTable, } from "@tanstack/react-table"
+import {ColumnDef, SortingState, flexRender, getCoreRowModel, getPaginationRowModel, getSortedRowModel,getFilteredRowModel, useReactTable, } from "@tanstack/react-table"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
 import { useQuery } from '@tanstack/react-query'
 import { axios_instance } from '@/api/axios'
@@ -11,9 +11,10 @@ import { Button } from '../ui/button'
 
 const emptyData: any[]= []
 
-const SericesTable = () => {
+const ServicesTable = () => {
     const {auth} = useAuth()
     const [sorting, setSorting] = useState<SortingState>([])
+    const [filtering, setFiltering] = useState("")
 
     const services = useQuery<Service[]>({
         queryKey: ["services"],
@@ -27,8 +28,8 @@ const SericesTable = () => {
     const columns:ColumnDef<Service>[] =[{
         accessorKey: "id",
         header:({column})=>(<DataTableColumnHeader column={column} title='Service ID' />),
-        cell:({row}) => <div>
-            {row.original.id}
+        cell:({row}) => <div >
+            <span className='text-gray-400'>#</span>{row.original.id}
         </div>
     },{
         accessorKey: "name",
@@ -37,13 +38,14 @@ const SericesTable = () => {
             {row.original.name}
         </div>
     },{
-        accessorKey: "customerName",
+        accessorFn: (row) => `${row.customer.firstname} ${row.customer.lastname} ${row.customer.othernames}`,
+        id: "customer",
         header:({column})=>(<DataTableColumnHeader column={column} title='Customer Name' />),
         cell:({row}) => <div>
             {row.original.customer.firstname} {row.original.customer.lastname} {row.original.customer?.othernames}
         </div>
     },{
-        accessorKey: "email",
+        accessorKey: "customer.email",
         header:({column})=>(<DataTableColumnHeader column={column} title='Customer Email' />),
         cell:({row}) => <div>
             {row.original.customer.email}
@@ -61,7 +63,8 @@ const SericesTable = () => {
             {row.original.dueDate}
         </div>
     },{
-        accessorKey: "servicedBy",
+        accessorFn: (row) => `${row.servicer.firstname} ${row.servicer.lastname} ${row.servicer.othernames}`,
+        id: "servicer",
         header:({column})=>(<DataTableColumnHeader column={column} title='Serviced By' />),
         cell:({row}) => <div>
             {row.original.servicer.firstname} {row.original.servicer.lastname} {row.original.servicer?.othernames}
@@ -78,17 +81,21 @@ const SericesTable = () => {
             }
         },
         state:{
-            sorting
+            sorting,
+            globalFilter: filtering
         },
         onSortingChange: setSorting,
         getSortedRowModel: getSortedRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
         getPaginationRowModel: getPaginationRowModel()
     })
 
     return (
         <div className='w-full'>
             <div className="mb-4 flex items-center justify-between">
-                <div>Filters</div>
+                <div>
+                    <input value={filtering}  onChange={e => setFiltering(e.target.value)} placeholder='Search services...' className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-1 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"/>
+                </div>
                 <div className='flex flex-wrap gap-2'>
                     <DataTableViewOptions table={table} />
                 </div>
@@ -159,4 +166,4 @@ const SericesTable = () => {
     )
 }
 
-export default SericesTable
+export default ServicesTable
