@@ -21,11 +21,10 @@ export async function authenticateRefreshToken(req:AuthRequest, res:Response, ne
         const payload = <jwt.JwtPayload>jwt.verify(token, process.env.JWT_SECRET_KEY as string)
         
         req.tokenAccount = payload
+        next()
     }catch(e){
         return res.sendStatus(401).json({message: "Unauthorized"})
     }
-    
-    next()
 }
 
 function extractTokenFromHeader(request:Request){        
